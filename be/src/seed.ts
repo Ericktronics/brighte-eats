@@ -1,40 +1,51 @@
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
-
+interface Lead {
+  name: string;
+  email: string;
+  mobile: string;
+  postcode: string;
+  services: Services[];
+}
+enum Services {
+  DELIVERY = "delivery",
+  PICK_UP = "pick-up",
+  PAYMENT = "payment",
+}
 async function main() {
   // Clear existing data
   await prisma.lead.deleteMany({});
 
   // Sample leads data
-  const leads = [
+  const leads: Lead[] = [
     {
       name: "John Doe",
       email: "john.doe@example.com",
       mobile: "0400123456",
       postcode: "2000",
-      services: ["Solar", "Battery"],
+      services: [Services.DELIVERY],
     },
     {
       name: "Jane Smith",
       email: "jane.smith@example.com",
       mobile: "0400789012",
       postcode: "2010",
-      services: ["Solar"],
+      services: [Services.PAYMENT],
     },
     {
       name: "Bob Wilson",
       email: "bob.wilson@example.com",
       mobile: "0400345678",
       postcode: "2020",
-      services: ["Battery", "EV Charger"],
+      services: [Services.PICK_UP],
     },
     {
       name: "Henrick Peralta",
       email: "johnhenrickperalta@gmail.com",
       mobile: "1234567890",
       postcode: "4024",
-      services: ["IT Services", "Badminton Coaching"], 
+      services: [Services.PAYMENT, Services.DELIVERY, Services.PICK_UP],
     },
   ];
 
