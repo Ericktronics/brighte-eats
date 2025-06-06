@@ -1,0 +1,24 @@
+type Lead {
+  id: Int!
+  name: String!
+  email: String!
+  mobile: String!
+  postcode: String!
+  services: [String!]!
+  createdAt: String!
+}
+
+type Query {
+  leads: [Lead!]!
+  lead(id: Int!): Lead
+}
+
+type Mutation {
+  register(
+    name: String!
+    email: String!
+    mobile: String!
+    postcode: String!
+    services: [String!]!
+  ): Lead!
+}
